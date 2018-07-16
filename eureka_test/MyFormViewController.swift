@@ -14,7 +14,7 @@ class MyFormViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form7()
+    form8()
   }
   
   private func testGetValues() {
@@ -22,6 +22,45 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form8() {
+    form
+      +++ Section(header: "Required Rule", footer: "Options: Validates on change")
+      
+      <<< TextRow() {
+        $0.title = "Required Rule"
+        $0.add(rule: RuleRequired())
+        
+        // This could also have been achieved using a closure that returns nil if valid, or a ValidationError otherwise.
+        /*
+         let ruleRequiredViaClosure = RuleClosure<String> { rowValue in
+         return (rowValue == nil || rowValue!.isEmpty) ? ValidationError(msg: "Field required!") : nil
+         }
+         $0.add(rule: ruleRequiredViaClosure)
+         */
+        
+        $0.validationOptions = .validatesOnChange
+        }
+        .cellUpdate { cell, row in
+          if !row.isValid {
+            cell.titleLabel?.textColor = .red
+          }
+        }
+      
+      +++ Section(header: "Email Rule, Required Rule", footer: "Options: Validates on change after blurred")
+      
+      <<< TextRow() {
+        $0.title = "Email Rule"
+        $0.add(rule: RuleRequired())
+        $0.add(rule: RuleEmail())
+        $0.validationOptions = .validatesOnChangeAfterBlurred
+        }
+        .cellUpdate { cell, row in
+          if !row.isValid {
+            cell.titleLabel?.textColor = .red
+          }
+        }
   }
   
   private func form7() {
