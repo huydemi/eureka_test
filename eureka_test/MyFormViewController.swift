@@ -14,7 +14,7 @@ class MyFormViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form5()
+    form6()
   }
   
   private func testGetValues() {
@@ -22,6 +22,18 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form6() {
+    form +++ SelectableSection<ListCheckRow<String>>("Where do you live", selectionType: .singleSelection(enableDeselection: true))
+    let continents = ["Africa", "Antarctica", "Asia", "Australia", "Europe", "North America", "South America"]
+    for option in continents {
+      form.last! <<< ListCheckRow<String>(option) { listRow in
+        listRow.title = option
+        listRow.selectableValue = option
+        listRow.value = nil
+      }
+    }
   }
   
   private func form5() {
