@@ -24,9 +24,56 @@ class MyFormViewController: FormViewController {
         $0.placeholder = "Add number here"
       }
     +++ Section("Section 2")
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
+      <<< LabelRow() {
+        $0.title = "This is a label title"
+        $0.value = "This is label value"
+      }
       <<< DateRow() {
         $0.title = "Data Row"
         $0.value = Date(timeIntervalSinceReferenceDate: 0)
       }
+    
+    // Enables the navigation accessory and stops navigation when a disabled row is encountered
+    //navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
+    // Enables smooth scrolling on navigation to off-screen rows
+    animateScroll = true
+    // Leaves 60pt of space between the keyboard and the highlighted row after scrolling to an off screen row
+    rowKeyboardSpacing = 60
   }
 }
