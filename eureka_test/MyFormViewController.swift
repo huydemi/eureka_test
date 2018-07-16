@@ -14,7 +14,7 @@ class MyFormViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form2()
+    form3()
   }
   
   private func testGetValues() {
@@ -22,6 +22,22 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form3() {
+    let row = SwitchRow("Switch Row") { row in // initializer
+                row.title = "The title"
+              }.onChange { row in
+                row.title = (row.value ?? false) ? "The title expands when on" : "The title"
+                row.updateCell()
+              }.cellSetup { cell, row in
+                cell.backgroundColor = .lightGray
+              }.cellUpdate { cell, row in
+                cell.textLabel?.font = .italicSystemFont(ofSize: 18.0)
+              }
+    
+    form +++ Section("Section A")
+      <<< row
   }
   
   private func form2() {
