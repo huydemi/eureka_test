@@ -39,7 +39,18 @@ class MyFormViewController: FormViewController {
             section.header = header
           }
       +++ Section() {
-        $0.header = HeaderFooterView<EurekaLogoView>(.class)
+            $0.header = HeaderFooterView<EurekaLogoView>(.class)
+          }
+      +++ Section(){ section in
+            section.header = {
+              var header = HeaderFooterView<UIView>(.callback({
+                let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+                view.backgroundColor = .red
+                return view
+              }))
+              header.height = { 100 }
+              return header
+            }()
           }
   }
   
