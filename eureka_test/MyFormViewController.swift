@@ -26,6 +26,14 @@ class MyFormViewController: FormViewController {
   
   private func form2() {
     form +++ Section()
+      <<< TextRow()
+      <<< DateRow()
+    
+    // Or implicitly create the Section
+    form +++ TextRow()
+      <<< DateRow()
+    
+    form +++ Section()
     
     // Chain it to add multiple Sections
     form +++ Section("First Section") +++ Section("Another Section")
