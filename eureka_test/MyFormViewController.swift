@@ -14,6 +14,28 @@ class MyFormViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    form2()
+  }
+  
+  private func testGetValues() {
+    // Get the value of all rows which have a Tag assigned
+    // The dictionary contains the 'rowTag':value pairs.
+    let valuesDictionary = form.values()
+    print(valuesDictionary)
+  }
+  
+  private func form2() {
+    form +++ Section()
+    
+    // Chain it to add multiple Sections
+    form +++ Section("First Section") +++ Section("Another Section")
+    
+    // Or use it with rows and get a blank section for free
+    form +++ TextRow()
+         +++ TextRow()  // Each row will be on a separate section
+  }
+  
+  private func form1() {
     form +++ Section("Session 1")
       <<< TextRow() { row in
         row.title = "Text Row"
@@ -71,14 +93,14 @@ class MyFormViewController: FormViewController {
         $0.value = Date(timeIntervalSinceReferenceDate: 0)
         $0.tag = "dateText"
       }
-    
+      
     +++ Section()
       <<< ButtonRow() { (row: ButtonRow) -> Void in
         row.title = "Get Values"
-      }
-      .onCellSelection { [weak self] (cell, row) in
-        self?.testGetValues()
-      }
+        }
+        .onCellSelection { [weak self] (cell, row) in
+          self?.testGetValues()
+    }
     
     // Enables the navigation accessory and stops navigation when a disabled row is encountered
     //navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
@@ -86,12 +108,5 @@ class MyFormViewController: FormViewController {
     animateScroll = true
     // Leaves 60pt of space between the keyboard and the highlighted row after scrolling to an off screen row
     rowKeyboardSpacing = 60
-  }
-  
-  private func testGetValues() {
-    // Get the value of all rows which have a Tag assigned
-    // The dictionary contains the 'rowTag':value pairs.
-    let valuesDictionary = form.values()
-    print(valuesDictionary)
   }
 }
