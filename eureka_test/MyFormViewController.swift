@@ -14,7 +14,7 @@ class MyFormViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form3()
+    form4()
   }
   
   private func testGetValues() {
@@ -22,6 +22,25 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form4() {
+    form +++ Section("Title")
+      +++ Section(header: "Title", footer: "Footer Title")
+      +++ Section(footer: "Footer Title")
+      +++ Section() { section in
+            var header = HeaderFooterView<EurekaLogoView>(.class)
+
+            // Will be called every time the header appears on screen
+            header.onSetupView = { view, _ in
+              // Commonly used to setup texts inside the view
+              // Don't change the view hierarchy or size here!
+            }
+            section.header = header
+          }
+      +++ Section() {
+        $0.header = HeaderFooterView<EurekaLogoView>(.class)
+          }
   }
   
   private func form3() {
