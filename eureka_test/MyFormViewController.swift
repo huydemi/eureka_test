@@ -25,6 +25,13 @@ class MyFormViewController: FormViewController {
   }
   
   private func form2() {
+    // Append Sections into a Form
+    form += [Section("A"), Section("B"), Section("C")]
+    
+    // Append Rows into a Section
+    var section = Section()
+    section += [TextRow(), DateRow()]
+    
     form +++ Section()
       <<< TextRow()
       <<< DateRow()
