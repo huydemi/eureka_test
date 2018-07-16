@@ -14,7 +14,7 @@ class MyFormViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form4()
+    form5()
   }
   
   private func testGetValues() {
@@ -22,6 +22,29 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form5() {
+    form +++ Section()
+      <<< SwitchRow("switchRowTag") {
+        $0.title = "Show message"
+      }
+      <<< LabelRow() {
+        $0.hidden = Condition.function(["switchRowTag"], { form in
+          return !((form.rowBy(tag: "switchRowTag") as? SwitchRow)?.value ?? false)
+        })
+        $0.title = "Switch is on!"
+      }
+      
+      +++ Section()
+      <<< SwitchRow("switchTag") {
+        $0.title = "hahaha"
+      }
+      
+      <<< LabelRow() {
+        $0.hidden = "$switchTag == false"
+        $0.title = "Switch is on 2!"
+      }
   }
   
   private func form4() {
