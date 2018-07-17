@@ -40,6 +40,22 @@ public final class CustomRow: Row<CustomCell>, RowType {
   }
 }
 
+class PickerInlineRow<T> : Row<PickerInlineCell<T>> where T: Equatable {
+  
+  public typealias InlineRow = PickerRow<T>
+  open var options = [T]()
+  
+  required public init(tag: String?) {
+    super.init(tag: tag)
+  }
+  
+  public func setupInlineRow(_ inlineRow: InlineRow) {
+    inlineRow.options = self.options
+    inlineRow.displayValueFor = self.displayValueFor
+    inlineRow.cell.height = { UITableViewAutomaticDimension }
+  }
+}
+
 class MyFormViewController: FormViewController {
   
   override func viewDidLoad() {
