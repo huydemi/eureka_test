@@ -14,7 +14,7 @@ class MyFormViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form8()
+    form9()
   }
   
   private func testGetValues() {
@@ -22,6 +22,41 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form9() {
+    let row = TextRow() {
+      let deleteAction = SwipeAction(
+        style: .destructive,
+        title: "Delete",
+        handler: { (action, row, completionHandler) in
+          //add your code here.
+          //make sure you call the completionHandler once done.
+          completionHandler?(true)
+      })
+      deleteAction.image = UIImage(named: "icon-trash")
+      
+      $0.trailingSwipe.actions = [deleteAction]
+      $0.trailingSwipe.performsFirstActionWithFullSwipe = true
+      
+      //please be aware: `leadingSwipe` is only available on iOS 11+ only
+      let infoAction = SwipeAction(
+        style: .normal,
+        title: "Info",
+        handler: { (action, row, completionHandler) in
+          //add your code here.
+          //make sure you call the completionHandler once done.
+          completionHandler?(true)
+      })
+      infoAction.backgroundColor = .blue
+      infoAction.image = UIImage(named: "icon-info")
+      
+      $0.leadingSwipe.actions = [infoAction]
+      $0.leadingSwipe.performsFirstActionWithFullSwipe = true
+    }
+    
+    form +++ Section()
+      <<< row
   }
   
   private func form8() {
