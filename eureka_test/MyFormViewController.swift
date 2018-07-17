@@ -40,28 +40,12 @@ public final class CustomRow: Row<CustomCell>, RowType {
   }
 }
 
-class PickerInlineRow<T> : Row<PickerInlineCell<T>> where T: Equatable {
-  
-  public typealias InlineRow = PickerRow<T>
-  open var options = [T]()
-  
-  required public init(tag: String?) {
-    super.init(tag: tag)
-  }
-  
-  public func setupInlineRow(_ inlineRow: InlineRow) {
-    inlineRow.options = self.options
-    inlineRow.displayValueFor = self.displayValueFor
-    inlineRow.cell.height = { UITableViewAutomaticDimension }
-  }
-}
-
 class MyFormViewController: FormViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form10()
+    form11()
   }
   
   private func testGetValues() {
@@ -69,6 +53,16 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form11() {
+    form +++ Section()
+      <<< ActionSheetRow<String>() {
+            $0.title = "ActionSheetRow"
+            $0.selectorTitle = "Pick a number"
+            $0.options = ["One","Two","Three"]
+            $0.value = "Two"    // initially selected
+          }
   }
   
   private func form10() {
