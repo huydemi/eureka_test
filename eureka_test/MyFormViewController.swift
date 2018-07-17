@@ -9,12 +9,43 @@
 import UIKit
 import Eureka
 
+// Custom Cell with value type: Bool
+// The cell is defined using a .xib, so we can set outlets :)
+public class CustomCell: Cell<Bool>, CellType {
+  @IBOutlet weak var switchControl: UISwitch!
+  @IBOutlet weak var label: UILabel!
+  
+  public override func setup() {
+    super.setup()
+    switchControl.addTarget(self, action: #selector(CustomCell.switchValueChanged), for: .valueChanged)
+  }
+  
+  @objc func switchValueChanged(){
+    row.value = switchControl.isOn
+    row.updateCell() // Re-draws the cell which calls 'update' bellow
+  }
+  
+  public override func update() {
+    super.update()
+    backgroundColor = (row.value ?? false) ? .white : .black
+  }
+}
+
+// The custom Row also has the cell: CustomCell and its correspond value
+public final class CustomRow: Row<CustomCell>, RowType {
+  required public init(tag: String?) {
+    super.init(tag: tag)
+    // We set the cellProvider to load the .xib corresponding to our cell
+    cellProvider = CellProvider<CustomCell>(nibName: "CustomCell")
+  }
+}
+
 class MyFormViewController: FormViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    form9()
+    form10()
   }
   
   private func testGetValues() {
@@ -22,6 +53,11 @@ class MyFormViewController: FormViewController {
     // The dictionary contains the 'rowTag':value pairs.
     let valuesDictionary = form.values()
     print(valuesDictionary)
+  }
+  
+  private func form10() {
+    form +++ Section()
+      <<< CustomRow("customRowTag")
   }
   
   private func form9() {
